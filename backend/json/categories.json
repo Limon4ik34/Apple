@@ -1,0 +1,298 @@
+{
+  "headphones": {
+    "title": "наушники",
+    "products": [
+      {
+        "id": "AirPods_Max",
+        "title": "AirPods Max",
+        "img": "http://localhost:5000/AirPods_Max_2.jpg",
+        "prices": {
+          "currentPrice": 45990,
+          "oldPrice": 64990
+        }
+      },
+      {
+        "id": "AirPods_Pro_2",
+        "title": "AirPods Pro 2",
+        "img": "http://localhost:5000/AirPods_Pro_2_1.jpg",
+        "prices": {
+          "currentPrice": 22990,
+          "oldPrice": 24990
+        }
+      },
+      {
+        "id": "AirPods_3",
+        "title": "AirPods 3",
+        "img": "http://localhost:5000/AirPods_3_1.jpg",
+        "prices": {
+          "currentPrice": 15990,
+          "oldPrice": 19990
+        }
+      },
+      {
+        "id": "AirPods_2",
+        "title": "AirPods 2",
+        "img": "http://localhost:5000/AirPods_2_1.jpg",
+        "prices": {
+          "currentPrice": 11490,
+          "oldPrice": 14990
+        }
+      }
+
+    ]
+  },
+  "phones": {
+    "title": "Смартфоны",
+    "products": [
+      {
+        "id": "Apple_iPhone_16_Pro_Max",
+        "title": "Apple iPhone 16 Pro Max",
+        "img": "http://localhost:5000/Apple_iPhone_16_Pro_Max_1.jpg",
+        "prices": {
+          "currentPrice": 149990,
+          "oldPrice": 179990
+        }
+      },
+      {
+        "id": "Apple_iPhone_16_Pro",
+        "title": "Apple iPhone 16 Pro",
+        "img": "http://localhost:5000/Apple_iPhone_16_Pro_1.jpg",
+        "prices": {
+          "currentPrice": 114490,
+          "oldPrice": 144990
+        }
+      },
+      {
+        "id": "Apple_iPhone_16_Plus",
+        "title": "Apple iPhone 16 Plus",
+        "img": "http://localhost:5000/Apple_iPhone_16_Plus_1.jpg",
+        "prices": {
+          "currentPrice": 109990,
+          "oldPrice": 119990
+        }
+      },
+      {
+        "id": "Apple_iPhone_16",
+        "title": "Apple iPhone 16",
+        "img": "http://localhost:5000/Apple_iPhone_16_1.jpg",
+        "prices": {
+          "currentPrice": 85990,
+          "oldPrice": 99990
+        }
+      },
+      {
+        "id": "Apple_iPhone_15_Pro_Max",
+        "title": "Apple iPhone 15 Pro Max",
+        "img": "http://localhost:5000/Apple_iPhone_15_Pro_Max_1.jpg",
+        "prices": {
+          "currentPrice": 119990,
+          "oldPrice": 174990
+        }
+      },
+      {
+        "id": "Apple_iPhone_15_Pro",
+        "title": "Apple iPhone 15 Pro",
+        "img": "http://localhost:5000/Apple_iPhone_15_Pro_1.jpg",
+        "prices": {
+          "currentPrice": 101990,
+          "oldPrice": 149990
+        }
+      },
+      {
+        "id": "Apple_iPhone_15",
+        "title": "Apple iPhone 15",
+        "img": "http://localhost:5000/Apple_iPhone_15_1.jpg",
+        "prices": {
+          "currentPrice": 69490,
+          "oldPrice": 88990
+        }
+      },
+      {
+        "id": "Apple_iPhone_SE_2022",
+        "title": "Apple iPhone SE 2022",
+        "img": "http://localhost:5000/Apple_iPhone_SE_2022_1.jpg",
+        "prices": {
+          "currentPrice": 29990,
+          "oldPrice": 34990
+        }
+      },
+      {
+        "id": "Apple_iPhone_14_Plus",
+        "title": "Apple iPhone 14 Plus",
+        "img": "http://localhost:5000/Apple_iPhone_14_Plus_1.jpg",
+        "prices": {
+          "currentPrice": 67990,
+          "oldPrice": 69990
+        }
+      },
+      {
+        "id": "Apple_iPhone_14",
+        "title": "Apple iPhone 14",
+        "img": "http://localhost:5000/Apple_iPhone_14_1.jpg",
+        "prices": {
+          "currentPrice": 61990,
+          "oldPrice": 79990
+        }
+      }
+    ]
+  },
+  "notebooks": {
+    "title": "Ноутбуки",
+    "products": [
+      {
+        "id": "MacBook_Pro_16",
+        "title": "MacBook Pro 16",
+        "img": "http://localhost:5000/MacBook_Pro_16_1.png",
+        "prices": {
+          "currentPrice": 229990,
+          "oldPrice": 249990
+        }
+      },
+      {
+        "id": "MacBook_Pro_14_M3_Pro",
+        "title": "MacBook Pro 14, M3 Pro",
+        "img": "http://localhost:5000/MacBook_Pro_14_M3_Pro_1.png",
+        "prices": {
+          "currentPrice": 199990,
+          "oldPrice": 219990
+        }
+      },
+      {
+        "id": "MacBook_Pro_14_M3",
+        "title": "MacBook Pro 14, M3 Pro",
+        "img": "http://localhost:5000/MacBook_Pro_14_M3_1.png",
+        "prices": {
+          "currentPrice": 145990,
+          "oldPrice": 169990
+        }
+      },
+      {
+        "id": "MacBook_Air_15_M3",
+        "title": "MacBook Air 15, M3",
+        "img": "http://localhost:5000/MacBook_Air_15_M3_1.jpg",
+        "prices": {
+          "currentPrice": 127990,
+          "oldPrice": 129990
+        }
+      },
+      {
+        "id": "MacBook_Air_13_M3",
+        "title": "MacBook Air 13, M3",
+        "img": "http://localhost:5000/MacBook_Air_13_M3_1.jpg",
+        "prices": {
+          "currentPrice": 106490,
+          "oldPrice": 129990
+        }
+      },
+      {
+        "id": "MacBook_Pro_16_M2_Pro",
+        "title": "MacBook Pro 16, M2 Pro",
+        "img": "http://localhost:5000/MacBook_Pro_16_M2_Pro_1.png",
+        "prices": {
+          "currentPrice": 179990,
+          "oldPrice": 199990
+        }
+      },
+      {
+        "id": "MacBook_Pro_13_M2",
+        "title": "MacBook Pro 13, M2",
+        "img": "http://localhost:5000/MacBook_Pro_13_M2_1.png",
+        "prices": {
+          "currentPrice": 119990,
+          "oldPrice": 129990
+        }
+      }
+    ]
+  },
+  "clock": {
+    "title": "Часы",
+    "products": [
+      {
+        "id": "Apple_Watch_Ultra_2",
+        "title": "Apple Watch Ultra 2",
+        "img": "http://localhost:5000/Apple_Watch_Ultra_2_1.jpg",
+        "prices": {
+          "currentPrice": 79990,
+          "oldPrice": 86990
+        }
+      },
+      {
+        "id": "Apple_Watch_10",
+        "title": "Apple Watch 10",
+        "img": "http://localhost:5000/Apple_Watch_10_1.jpg",
+        "prices": {
+          "currentPrice": 47990,
+          "oldPrice": 55990
+        }
+      },
+      {
+        "id": "Apple_Watch_9",
+        "title": "Apple Watch 9",
+        "img": "http://localhost:5000/Apple_Watch_9_1.jpg",
+        "prices": {
+          "currentPrice": 30490,
+          "oldPrice": 44990
+        }
+      },
+      {
+        "id": "Apple_Watch_8",
+        "title": "Apple Watch 8",
+        "img": "http://localhost:5000/Apple_Watch_8_1.jpg",
+        "prices": {
+          "currentPrice": 28990,
+          "oldPrice": 42990
+        }
+      },
+      {
+        "id": "Apple_Watch_SE_2",
+        "title": "Apple Watch SE 2",
+        "img": "http://localhost:5000/Apple_Watch_SE_2_1.jpg",
+        "prices": {
+          "currentPrice": 19990,
+          "oldPrice": 29990
+        }
+      }
+    ]
+  },
+  "ipad": {
+    "title": "планшеты",
+    "products": [
+      {
+        "id": "Apple_iPad_Pro_M4",
+        "title": "Apple iPad Pro M4",
+        "img": "http://localhost:5000/Apple_iPad_Pro_M4_1.jpg",
+        "prices": {
+          "currentPrice": 99990,
+          "oldPrice": 109990
+        }
+      },
+      {
+        "id": "Apple_iPad_Air_M2",
+        "title": "Apple iPad Air M2",
+        "img": "http://localhost:5000/Apple_iPad_Air_M2_1.jpg",
+        "prices": {
+          "currentPrice": 64990,
+          "oldPrice": 69990
+        }
+      },
+      {
+        "id": "Apple_iPad_Mini_6",
+        "title": "Apple iPad Mini 6",
+        "img": "http://localhost:5000/Apple_iPad_Mini_6_1.jpg",
+        "prices": {
+          "currentPrice": 47990,
+          "oldPrice": 54990
+        }
+      },
+      {
+        "id": "Apple_iPad_10",
+        "title": "Apple iPad 10",
+        "img": "http://localhost:5000/Apple_iPad_10_1.jpg",
+        "prices": {
+          "currentPrice": 34490,
+          "oldPrice": 52990
+        }
+      }
+    ]
+  }
+}
