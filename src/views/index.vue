@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-page">
     <router-link to="/catalog/phones">
       Перейти в каталог
     </router-link>
@@ -7,7 +7,8 @@
 </template>
 
 <style scoped lang="scss">
-.catalog-page {
+.main-page {
+  padding: 20px;
   .categories-menu {
     width: 300px;
     .menu-title {

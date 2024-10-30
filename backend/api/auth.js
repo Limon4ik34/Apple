@@ -6,7 +6,6 @@ import {
 const users = './json/users.json'
 import pkg from 'jsonwebtoken';
 
-
 export default function (server) {
   server.get('/auth/get-token', async (query, res) => {
     const token = pkg.sign({ foo: 'bar' }, 'shhhhh');

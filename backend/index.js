@@ -7,6 +7,7 @@ import catalogApi from './api/catalog.js'
 import productsApi from './api/products.js'
 import searchApi from './api/search.js'
 import authApi from './api/auth.js'
+import cartApi from './api/cart.js'
 
 import 'dotenv/config'
 
@@ -27,6 +28,7 @@ catalogApi(app)
 productsApi(app)
 searchApi(app)
 authApi(app)
+cartApi(app)
 
 
 const port = 5000

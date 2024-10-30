@@ -1,1 +1,34 @@
-[{"name":"Test","lastName":"Test","login":"asd","password":"asd","passwordAgain":"TestTestTestTest","id":"1730290575037"},{"name":"Teodor","lastName":"Smirnow","login":"ToDoShkin","password":"ToDoShkin123","passwordAgain":"ToDoShkin123","id":"1730291700208"},{"name":"asd","lastName":"asd","login":"asdasd","password":"asdasdasdasd","passwordAgain":"asdasdasdasd","id":"1730291890108"},{"name":"dddd","lastName":"dddd","login":"dddd","password":"dddddddd1","passwordAgain":"dddddddd1","id":"1730291955972"}]
+[
+  {
+    "name": "Test",
+    "lastName": "Test",
+    "login": "asd",
+    "password": "asd",
+    "passwordAgain": "TestTestTestTest",
+    "id": "1730290575037"
+  },
+  {
+    "name": "Teodor",
+    "lastName": "Smirnow",
+    "login": "ToDoShkin",
+    "password": "ToDoShkin123",
+    "passwordAgain": "ToDoShkin123",
+    "id": "1730291700208"
+  },
+  {
+    "name": "asd",
+    "lastName": "asd",
+    "login": "asdasd",
+    "password": "asdasdasdasd",
+    "passwordAgain": "asdasdasdasd",
+    "id": "1730291890108"
+  },
+  {
+    "name": "dddd",
+    "lastName": "dddd",
+    "login": "dddd",
+    "password": "dddddddd1",
+    "passwordAgain": "dddddddd1",
+    "id": "1730291955972"
+  }
+]

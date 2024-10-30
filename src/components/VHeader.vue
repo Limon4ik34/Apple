@@ -28,9 +28,11 @@
         >
           <md-icon>search</md-icon>
         </md-button>
-        <md-button class="md-icon-button md-raised md-mini">
-          <md-icon>shopping_cart</md-icon>
-        </md-button>
+        <router-link to="/cart">
+          <md-button class="md-icon-button md-raised md-mini">
+            <md-icon>shopping_cart</md-icon>
+          </md-button>
+        </router-link>
         <md-button @click="showAuthDialog = true" class="md-icon-button md-raised">
           <md-icon>login</md-icon>
         </md-button>

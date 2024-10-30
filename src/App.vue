@@ -28,12 +28,12 @@ export default {
     VueHead
   },
   beforeCreate() {
-    if (!localStorage.token) {
-      this.axios.get('http://localhost:5000/auth/get-token').then(data => {
-        console.log('token', data.data.data.data.token)
-        localStorage.token = data.data.data.data.token
-      });
-    }
+    // if (!localStorage.token) {
+    //   this.axios.get('http://localhost:5000/auth/get-token').then(data => {
+    //     console.log('token', data.data.data.data.token)
+    //     localStorage.token = data.data.data.data.token
+    //   });
+    // }
   }
 }
 </script>

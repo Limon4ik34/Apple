@@ -19,7 +19,7 @@
           {{ product?.prices?.currentPrice }} ₽
         </div>
       </div>
-      <md-button class="md-fab md-mini md-primary">
+      <md-button @click="addToCart" class="md-fab md-mini md-primary">
         <md-icon>shopping_basket</md-icon>
       </md-button>
     </div>
@@ -67,6 +67,21 @@ export default {
       default: false
     }
   },
-  name: "product"
+  name: "product",
+  methods: {
+    addToCart() {
+      this.axios.post('http://localhost:5000/cart', {
+        id: this.product.id,
+        qty: 1
+      }, {
+        headers: {
+          Authorization: localStorage.token
+        }
+      }).then(data => {
+        // console.log('token', data.data.data.data.token)
+        // localStorage.token = data.data.data.data.token
+      });
+    }
+  }
 }
 </script>
