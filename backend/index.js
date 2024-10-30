@@ -6,6 +6,7 @@ import morgan from 'morgan'
 import catalogApi from './api/catalog.js'
 import productsApi from './api/products.js'
 import searchApi from './api/search.js'
+import authApi from './api/auth.js'
 
 import 'dotenv/config'
 
@@ -25,6 +26,7 @@ express.response.sendWrapped = function (data) {
 catalogApi(app)
 productsApi(app)
 searchApi(app)
+authApi(app)
 
 
 const port = 5000

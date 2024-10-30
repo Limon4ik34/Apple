@@ -22,10 +22,18 @@ body, html {
 }
 </style>
 <script>
-import VueHead from '@/components/header.vue'
+import VueHead from '@/components/VHeader.vue'
 export default {
   components: {
     VueHead
+  },
+  beforeCreate() {
+    if (!localStorage.token) {
+      this.axios.get('http://localhost:5000/auth/get-token').then(data => {
+        console.log('token', data.data.data.data.token)
+        localStorage.token = data.data.data.data.token
+      });
+    }
   }
 }
 </script>
