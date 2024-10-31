@@ -85,6 +85,7 @@
           <md-field :class="{'md-invalid': authErrors.password}">
             <label>Пароль</label>
             <md-input
+                type="password"
               @keyup.enter="search"
               v-model="authModel.password">
             </md-input>
@@ -123,6 +124,7 @@
           <md-field :class="{'md-invalid': regErrors.password}">
             <label>Пароль</label>
             <md-input
+                type="password"
               @keyup.enter="search"
               v-model="regModel.password">
             </md-input>
@@ -131,6 +133,7 @@
           <md-field :class="{'md-invalid': regErrors.passwordAgain}">
             <label>Пароль ещё раз</label>
             <md-input
+                type="password"
               @keyup.enter="search"
               v-model="regModel.passwordAgain">
             </md-input>
