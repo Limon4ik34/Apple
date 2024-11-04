@@ -116,4 +116,139 @@ export default {
     })
     return res
   },
+  async saveProductImage(image) {
+    let res = new Promise((resolve, reject) => {
+      const sql = `
+            INSERT INTO product_images (name, productId) 
+            VALUES('${image.name}', ${image.productId})
+            `
+      connection.query(sql, function(err, results) {
+        if(err) {
+          console.log('err', err)
+          console.log('reject')
+          reject(err)
+        } else {
+          resolve(results)
+          console.log('resolve')
+        }
+      });
+    })
+    return res
+  },
+  async createProduct(image) {
+    let res = new Promise((resolve, reject) => {
+      const sql = `
+            INSERT INTO products (title, category, oldPrice, currentPrice, description, slug) 
+            VALUES('${image.title}', '${image.category}', ${image.oldPrice}, ${image.currentPrice},'${image.description}','${image.slug}')
+            `
+      connection.query(sql, function(err, results) {
+        if(err) {
+          console.log('err', err)
+          console.log('reject')
+          reject(err)
+        } else {
+          resolve(results)
+          console.log('resolve')
+        }
+      });
+    })
+    return res
+  },
+  async getProducts() {
+    let res = new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM products'
+      connection.query(sql, function(err, results) {
+        if(err) {
+          console.log('err', err)
+          console.log('reject')
+          reject(err)
+        } else {
+          resolve(results)
+          console.log('resolve')
+        }
+      });
+    })
+    return res
+  },
+  async getProductById(id) {
+    let res = new Promise((resolve, reject) => {
+      const sql = `SELECT * FROM products WHERE id=${id}`
+      connection.query(sql, function(err, results) {
+        if(err) {
+          console.log('err', err)
+          console.log('reject')
+          reject(err)
+        } else {
+          console.log('resolve')
+          const sql2 = `SELECT * FROM product_images WHERE productId=${id}`
+          connection.query(sql2, function(err, images) {
+            results[0].images = []
+
+            images.forEach((img) => {
+              results[0].images.push(`http://localhost:5000/${img.name}`)
+            })
+            resolve(results[0])
+          })
+        }
+      });
+    })
+    return res
+  },
+  async updateProduct(product) {
+    let res = new Promise((resolve, reject) => {
+      const sql = `UPDATE products SET title='${product.title}', category='${product.category}', oldPrice=${product.oldPrice}, currentPrice=${product.currentPrice}, description='${product.description}', slug='${product.slug}'
+      WHERE id=${product.id}`;
+      connection.query(sql, function(err, results) {
+        if(err) {
+          console.log('err', err)
+          console.log('reject')
+          reject(err)
+        } else {
+          console.log('resolve')
+          resolve(results)
+        }
+      });
+    })
+    return res
+  },
+  async updateProductImages(dbData) {
+    let res = new Promise((resolve, reject) => {
+      const sql = `DELETE FROM product_images WHERE productId=${dbData.id}`;
+      connection.query(sql, function(err, results) {
+        if(err) {
+          console.log('err', err)
+          reject(err)
+        } else {
+          dbData.images.forEach(img => {
+            const sql2 = `
+            INSERT INTO product_images (name, productId) 
+            VALUES('${img}', ${dbData.id})
+            `
+            connection.query(sql2, function(err, results) {
+
+            })
+
+          })
+          resolve(results)
+        }
+      });
+    })
+    return res
+  },
+  async deleteProduct(id) {
+    let res = new Promise((resolve, reject) => {
+      const sql = `DELETE FROM products WHERE id=${id}`;
+      connection.query(sql, function(err, results) {
+        if(err) {
+          console.log('err', err)
+          console.log('reject')
+          reject(err)
+        } else {
+          resolve(results)
+          console.log('resolve')
+        }
+      });
+    })
+    return res
+  },
 }
