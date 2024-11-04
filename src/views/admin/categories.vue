@@ -31,7 +31,7 @@
             <md-button @click="openEdit(category)" class="md-icon-button md-raised md-primary">
               <md-icon>edit</md-icon>
             </md-button>
-            <md-button  @click="deleteCategory(category.id)" class="md-icon-button md-raised md-primary">
+            <md-button  @click="deleteCategory(category)" class="md-icon-button md-raised md-primary">
               <md-icon>delete</md-icon>
             </md-button>
           </md-table-cell>
@@ -72,7 +72,7 @@
       md-confirm-text="Да"
       md-cancel-text="Нет"
       @md-cancel="cancelDelete"
-      @md-confirm="deleteCategory" />
+      @md-confirm="confirmDelete" />
   </div>
 </template>
 
@@ -139,11 +139,21 @@ export default {
         // this.regErrors = err.response.data.data.errors
       });
     },
-    deleteCategory(id) {
-      this.axios.delete(`http://localhost:5000/admin/categories/${id}`).then(data => {
+    deleteCategory(category) {
+     this.deleteOptions = {
+       show: true,
+       category
+     }
+    },
+    confirmDelete() {
+      this.axios.delete(`http://localhost:5000/admin/categories/${this.deleteOptions.category.id}`).then(data => {
         this.showCreateNewDialog = false
         this.clearModel()
         this.getCategoriesList()
+        this.deleteOptions = {
+          show: false,
+          category: null
+        }
       }).catch((err)=> {
         // this.regErrors = err.response.data.data.errors
       });
