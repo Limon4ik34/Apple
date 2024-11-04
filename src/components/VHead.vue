@@ -185,7 +185,7 @@
 import ProductCard from "@/components/product.vue";
 
 export default {
-  name: "header",
+  name: "vHead",
   components: {ProductCard},
   data(){
     return{

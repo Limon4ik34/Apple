@@ -2,7 +2,7 @@ import {
   getQueryParams,
   readData
 } from '../utils/utils.js'
-
+import db from '../utils/db.js'
 const file = './json/categories.json'
 export default function (server) {
   server.get('/catalog', async (query, res) => {
@@ -10,5 +10,12 @@ export default function (server) {
     let data = readData(file)
     data = data[category]
     res.sendWrapped({ ...data })
+  })
+  server.get('/catalog/categories', async (query, res) => {
+    db.getCategories().then((result) => {
+      res.sendWrapped(result)
+    }).catch((err) => {
+      res.status(402).sendWrapped(err)
+    })
   })
 }

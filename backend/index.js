@@ -8,7 +8,8 @@ import productsApi from './api/products.js'
 import searchApi from './api/search.js'
 import authApi from './api/auth.js'
 import cartApi from './api/cart.js'
-
+import adminApi from './api/admin.js'
+import db from './utils/db.js'
 import 'dotenv/config'
 
 const app = express()
@@ -24,11 +25,14 @@ express.response.sendWrapped = function (data) {
   return this.send({ data })
 }
 
+db.connect()
+
 catalogApi(app)
 productsApi(app)
 searchApi(app)
 authApi(app)
 cartApi(app)
+adminApi(app)
 
 
 const port = 5000

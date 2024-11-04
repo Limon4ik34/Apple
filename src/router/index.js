@@ -4,6 +4,7 @@ import IndexPage from '@/views/index.vue'
 import CategoryPage from '@/views/catalog/index.vue'
 import ProductPage from '@/views/product.vue'
 import CartPage from '@/views/cart.vue'
+import AdminCategoriesPage from '@/views/admin/categories.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/product/:productId',
     name: 'product',
     component: ProductPage
+  },
+  {
+    path: '/admin/categories',
+    name: 'admin-categories',
+    component: AdminCategoriesPage
   }
 
 ]

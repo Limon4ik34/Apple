@@ -19,7 +19,7 @@
 </style>
 
 <script>
-import VueHeader from '@/components/VHeader.vue'
+import VueHeader from '@/components/VHead.vue'
 export default {
   name: "index",
   components: {

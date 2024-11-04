@@ -22,7 +22,7 @@ body, html {
 }
 </style>
 <script>
-import VueHead from '@/components/VHeader.vue'
+import VueHead from '@/components/VHead.vue'
 export default {
   components: {
     VueHead
