@@ -28,11 +28,9 @@
         >
           <md-icon>search</md-icon>
         </md-button>
-        <router-link to="/cart">
-          <md-button class="md-icon-button md-raised md-mini">
+          <md-button @click="goToCart" class="md-icon-button md-raised md-mini">
             <md-icon>shopping_cart</md-icon>
           </md-button>
-        </router-link>
         <md-button @click="showAuthDialog = true" class="md-icon-button md-raised">
           <md-icon>login</md-icon>
         </md-button>
@@ -276,6 +274,13 @@ export default {
         }).catch((err)=> {
           this.regErrors = err.response.data.data.errors
         });
+      }
+    },
+    goToCart() {
+      if (localStorage.token) {
+        this.$router.push('/cart')
+      } else {
+        this.showAuthDialog = true
       }
     },
     auth() {
