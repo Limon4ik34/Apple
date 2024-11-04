@@ -68,11 +68,11 @@
     </md-dialog>
     <md-dialog-confirm
       :md-active.sync="deleteOptions.show"
-      :md-title="`Вы уверены что хотите удалить категорию ${deleteOptions.category.title}`"
+      :md-title="`Вы уверены что хотите удалить категорию ${deleteOptions?.category?.title}`"
       md-confirm-text="Да"
       md-cancel-text="Нет"
       @md-cancel="cancelDelete"
-      @md-confirm="onConfirm" />
+      @md-confirm="deleteCategory" />
   </div>
 </template>
 
