@@ -50,13 +50,20 @@ export default function (server) {
   server.post('/admin/products', async (query, res) => {
     const body = query.body
     const files = query.files['images[]']
+    console.log('files', files)
     db.createProduct(body).then((product)=> {
       const productId = product.insertId
-      files.forEach(file => {
-        const fileName = `${Date.now()}-${file.name}`
-        file.mv(`./static/${fileName}`);
+      if (files.length) {
+        files.forEach(file => {
+          const fileName = `${Date.now()}-${file.name}`
+          file.mv(`./static/${fileName}`);
+          db.saveProductImage({name: fileName, productId})
+        })
+      } else {
+        const fileName = `${Date.now()}-${files.name}`
+        files.mv(`./static/${fileName}`);
         db.saveProductImage({name: fileName, productId})
-      })
+      }
       res.status(201).sendWrapped({data: 'ok'})
     }).catch((err) => {
       res.status(402).sendWrapped({
