@@ -10,9 +10,11 @@
       <img src="@/assets/baner_4.jpg" alt="Banner 4" class="banner" />
     </div>
 
-    <button class="buy-now-button">
-      <i class="fas fa-shopping-cart"></i> Купить сейчас
-    </button>
+    <router-link to="/catalog/headphones">
+      <button class="buy-now-button">
+        <i class="fas fa-shopping-cart"></i> Купить сейчас
+      </button>
+    </router-link>
 
     <div class="promotions">
       <h2 class="promotions-title">Акции</h2>

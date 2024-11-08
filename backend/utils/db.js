@@ -237,18 +237,27 @@ export default {
   },
   async deleteProduct(id) {
     let res = new Promise((resolve, reject) => {
-      const sql = `DELETE FROM products WHERE id=${id}`;
-      connection.query(sql, function(err, results) {
-        if(err) {
-          console.log('err', err)
-          console.log('reject')
-          reject(err)
+      // Сначала удаляем изображения товара
+      const sqlDeleteImages = `DELETE FROM product_images WHERE productId=${id}`;
+      connection.query(sqlDeleteImages, function(err) {
+        if (err) {
+          console.log('Ошибка при удалении изображений', err);
+          reject(err);
         } else {
-          resolve(results)
-          console.log('resolve')
+          // Если изображения успешно удалены, удаляем сам товар
+          const sqlDeleteProduct = `DELETE FROM products WHERE id=${id}`;
+          connection.query(sqlDeleteProduct, function(err, results) {
+            if (err) {
+              console.log('Ошибка при удалении товара', err);
+              reject(err);
+            } else {
+              resolve(results);
+              console.log('Товар и его изображения успешно удалены');
+            }
+          });
         }
       });
-    })
-    return res
-  },
+    });
+    return res;
+  }
 }
