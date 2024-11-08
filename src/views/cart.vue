@@ -29,7 +29,7 @@
         <span>{{ formatPrice(calculateTotal()) }}</span>
       </div>
       <div class="total-savings">
-        <span>Сэкономлено всего:</span>
+        <span>Выгода всего:</span>
         <span>{{ formatPrice(calculateTotalSavings()) }}</span>
       </div>
       <button class="checkout-button">Оформить заказ</button>
