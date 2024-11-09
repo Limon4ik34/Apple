@@ -7,25 +7,27 @@
     <div class="content">
       <div class="categories-menu">
         <div class="menu-items">
+
+
           <md-list>
             <md-list-item to="/catalog/headphones">
-              <md-icon>move_to_inbox</md-icon>
+              <md-icon>headset</md-icon>
               <span class="md-list-item-text">Наушники</span>
             </md-list-item>
             <md-list-item to="/catalog/phones">
-              <md-icon>move_to_inbox</md-icon>
+              <md-icon>smartphone</md-icon>
               <span class="md-list-item-text">Смартфоны</span>
             </md-list-item>
             <md-list-item to="/catalog/notebooks">
-              <md-icon>move_to_inbox</md-icon>
+              <md-icon>laptop</md-icon>
               <span class="md-list-item-text">Ноутбуки</span>
             </md-list-item>
             <md-list-item to="/catalog/clock">
-              <md-icon>move_to_inbox</md-icon>
+              <md-icon>access_time</md-icon>
               <span class="md-list-item-text">Часы</span>
             </md-list-item>
             <md-list-item to="/catalog/ipad">
-            <md-icon>move_to_inbox</md-icon>
+            <md-icon>tablet</md-icon>
             <span class="md-list-item-text">Планшеты</span>
             </md-list-item>
 

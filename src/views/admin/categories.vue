@@ -20,7 +20,7 @@
             ЧПУ
           </md-table-head>
           <md-table-head style="width: 150px">
-            Дейстрия
+            Действия
           </md-table-head>
         </md-table-row>
         <md-table-row v-for="category in categoriesList">

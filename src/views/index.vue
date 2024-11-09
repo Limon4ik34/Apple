@@ -26,6 +26,8 @@
       <h2 class="reviews-title">Отзывы клиентов</h2>
       <p class="review-item">"Отличный сервис и быстрая доставка!" - Анна</p>
       <p class="review-item">"Купил MacBook, очень доволен!" - Сергей</p>
+      <p class="review-item">"Превосходное качество и обслуживание!" - Ирина</p>
+      <p class="review-item">"Лучший магазин для покупки техники Apple!" - Дмитрий</p>
     </div>
 
     <div class="popular-products">
@@ -54,14 +56,13 @@
 
 .banner-images {
   display: flex;
-  flex-direction: row; /* Изменено на row для отображения в строку */
   flex-wrap: wrap; /* Позволяет элементам переходить на следующую строку */
   justify-content: center; /* Центрирует изображения по горизонтали */
 }
 
 .banner {
-  width: 100%;
-  max-width: 300px; /* Измените максимальную ширину для лучшего отображения в две строки */
+  width: calc(50% - 20px); /* Две фотографии в ряд с отступами */
+  max-width: 300px; /* Максимальная ширина для изображений */
   margin: 10px; /* Отступы между изображениями */
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
