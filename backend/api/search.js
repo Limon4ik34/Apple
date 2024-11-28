@@ -14,7 +14,7 @@ export default function (server) {
           result.push(item)
         }
       })
-      res.sendWrapped({ result })
+      res. sendWrapped({ result })
     })
   })
 }
