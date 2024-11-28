@@ -8,29 +8,10 @@
       <div class="categories-menu">
         <div class="menu-items">
 
-
           <md-list>
-            <md-list-item to="/catalog/headphones">
-              <md-icon>headset</md-icon>
-              <span class="md-list-item-text">Наушники</span>
+            <md-list-item v-for="category in categoryList" :to="`/catalog/${category.slug}`">
+              <span class="md-list-item-text">{{ category.title }}</span>
             </md-list-item>
-            <md-list-item to="/catalog/phones">
-              <md-icon>smartphone</md-icon>
-              <span class="md-list-item-text">Смартфоны</span>
-            </md-list-item>
-            <md-list-item to="/catalog/notebooks">
-              <md-icon>laptop</md-icon>
-              <span class="md-list-item-text">Ноутбуки</span>
-            </md-list-item>
-            <md-list-item to="/catalog/clock">
-              <md-icon>access_time</md-icon>
-              <span class="md-list-item-text">Часы</span>
-            </md-list-item>
-            <md-list-item to="/catalog/ipad">
-            <md-icon>tablet</md-icon>
-            <span class="md-list-item-text">Планшеты</span>
-            </md-list-item>
-
           </md-list>
         </div>
       </div>
@@ -88,7 +69,8 @@ export default {
   data() {
     return {
       productsList: [],
-      category: null
+      category: null,
+      categoryList: []
     }
   },
   components: {
@@ -96,14 +78,17 @@ export default {
   },
   methods: {
     getData() {
-      this.axios.get('http://localhost:5000/catalog', {
-        params: {
-          category: this.$route.params.categoryId
-        }
+      this.axios.get(`http://localhost:5000/catalog/categories/${this.$route.params.categoryId}`, {
       }).then(data => {
-        console.log(data.data.data)
+        // console.log(data.data.data)
         this.category = data.data.data
         // this.productsList = data.data.data.data.products
+      })
+      this.axios.get(`http://localhost:5000/catalog/categories/`, {
+      }).then(data => {
+        console.log(data.data.data)
+        // this.category = data.data.data
+        this.categoryList = data.data.data
       })
     }
   },

@@ -5,20 +5,8 @@
         <h3>Mobile City</h3>
       </router-link>
       <div class="links">
-        <router-link to="/catalog/headphones">
-          Наушники
-        </router-link>
-        <router-link to="/catalog/phones">
-          Смартфоны
-        </router-link>
-        <router-link to="/catalog/notebooks">
-          Ноутбуки
-        </router-link>
-        <router-link to="/catalog/clock">
-          Часы
-        </router-link>
-        <router-link to="/catalog/ipad">
-          Планшеты
+        <router-link v-for="category in categoryList" :to="`/catalog/${category.slug}`">
+          {{ category.title }}
         </router-link>
       </div>
       <div class="md-toolbar-section-end">
@@ -187,6 +175,7 @@ export default {
   components: {ProductCard},
   data(){
     return{
+      categoryList: [],
       showSearchDialog:false,
       showAuthDialog: false,
       searchText:'',
@@ -218,13 +207,14 @@ export default {
   },
   methods:{
     search() {
+      console.log('search')
       this.axios.get('http://localhost:5000/search', {
         params: {
           queryText: this.searchText
         }
       }).then(data => {
         this.searchResults = [...data.data.data.result];
-       console.log(data.data.result)
+       console.log(data.data.data.result)
         // this.productsList = data.data.data.data.products
       })
     },
@@ -309,6 +299,14 @@ export default {
         });
       }
     }
+  },
+  created() {
+    this.axios.get(`http://localhost:5000/catalog/categories/`, {
+    }).then(data => {
+      console.log(data.data.data)
+      // this.category = data.data.data
+      this.categoryList = data.data.data
+    })
   }
 }
 

@@ -18,4 +18,11 @@ export default function (server) {
       res.status(402).sendWrapped(err)
     })
   })
+  server.get('/catalog/categories/:id', async (query, res) => {
+    db.getProductsCategory( query.params.id).then((result) => {
+      res.sendWrapped({products:result})
+    }).catch((err) => {
+      res.status(402).sendWrapped(err)
+    })
+  })
 }

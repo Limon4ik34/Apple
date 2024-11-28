@@ -2,6 +2,7 @@ import {
   getQueryParams,
   readData
 } from '../utils/utils.js'
+import db from '../utils/db.js'
 
 const file = './json/products.json'
 export default function (server) {
@@ -10,5 +11,12 @@ export default function (server) {
     let data = readData(file)
     data = data[product]
     res.sendWrapped({ ...data })
+  })
+  server.get('/products/:id', async (query, res) => {
+    db.getProductBySlug( query.params.id).then((result) => {
+      res.sendWrapped(result)
+    }).catch((err) => {
+      res.status(402).sendWrapped(err)
+    })
   })
 }

@@ -32,10 +32,10 @@
         </div>
         <div class="prices">
           <div class="current-price md-subheading">
-            {{ product?.prices?.currentPrice }} ₽
+            {{ product?.currentPrice }} ₽
           </div>
           <div class="old-price md-subheading">
-            {{ product?.prices?.oldPrice }}  ₽
+            {{ product?.oldPrice }}  ₽
           </div>
         </div>
         <div class="description md-subheading">
@@ -73,10 +73,7 @@ export default {
       this.currentImageIndex = this.product.images.indexOf(img); // Устанавливаем индекс изображения
     },
     getProduct() {
-      this.axios.get('http://localhost:5000/products', {
-        params: {
-          product: this.$route.params.productId
-        }
+      this.axios.get(`http://localhost:5000/products/${this.$route.params.productId}`, {
       }).then(data => {
         this.product = data.data.data;
         if (this.product.images && this.product.images.length) {

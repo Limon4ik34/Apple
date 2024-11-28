@@ -1,10 +1,10 @@
 <template>
   <md-card v-if="product" class="product-card">
     <div class="product-image">
-      <img :src="product.img" class="image" alt="Product Image">
+      <img :src="`http://localhost:5000/${product.images[0].name}`" class="image" alt="Product Image">
     </div>
     <router-link
-        :to="`/product/${product.id}`"
+        :to="`/product/${product.slug}`"
         class="md-title">
       <span @click="$emit('goTo')" class="product-title">
         {{ product.title }}
@@ -13,10 +13,10 @@
     <div class="actions">
       <div class="info">
         <div class="cost-old">
-          {{ product?.prices?.oldPrice }} ₽
+          {{ product?.oldPrice }} ₽
         </div>
         <div class="cost">
-          {{ product?.prices?.currentPrice }} ₽
+          {{ product?.currentPrice }} ₽
         </div>
       </div>
       <md-button @click="addToCart" class="md-fab md-mini md-primary add-to-cart">
