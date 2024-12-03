@@ -338,4 +338,63 @@ export default {
     })
     return res
   },
+  async changeCart({userId, productId, qty}) {
+    let res = new Promise((resolve, reject) => {
+      if (parseInt(qty) <= 0) {
+        const sqlDel = `DELETE FROM carts WHERE userId='${userId}' AND productId='${productId}'`
+        connection.query(sqlDel, function (err, r) {
+          resolve(true)
+        })
+      } else {
+        const sqlTemp = `SELECT * FROM carts WHERE userId='${userId}' AND productId='${productId}'`
+        connection.query(sqlTemp, function (err, res) {
+          if (res.length) {
+            const updateSql = `UPDATE carts SET qty=${qty} WHERE id=${res[0].id}`
+            connection.query(updateSql, function (err, r) {
+              resolve(true)
+            })
+          } else {
+            const sqlInsert = `
+            INSERT INTO carts (userId, productId, qty) VALUES('${userId}',
+            '${productId}', '${qty}')
+            `
+            connection.query(sqlInsert, function (err, r) {
+              resolve(true)
+            })
+          }
+        })
+      }
+    })
+    return res
+  },
+  async getCart(userId) {
+    let res = new Promise((resolve, reject) => {
+      const sql = `SELECT * FROM carts WHERE userId = '${userId}'`
+      connection.query(sql, function (err, results) {
+        if (err) {
+          reject(err)
+        } else {
+          const cart = []
+          results.forEach((item) => {
+            const sql2 = `SELECT * FROM products WHERE id='${item.productId}'`
+            connection.query(sql2, function (err3, product) {
+              const sql3 = `SELECT * FROM product_images WHERE productId='${product[0].id}'`
+              connection.query(sql3, function (err, img) {
+                product[0].images = []
+                img.forEach((i) => {
+                  product[0].images.push(`http://localhost:5000/${i.name}`)
+                })
+                cart.push(product[0])
+              })
+            })
+          })
+          setTimeout(() => {
+            resolve(cart)
+          }, 300)
+        }
+      });
+    })
+    return res
+  },
+
 }

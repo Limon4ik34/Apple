@@ -168,6 +168,7 @@
 }
 </style>
 <script>
+import { EventBus } from '@/utils/event-bus'
 import ProductCard from "@/components/product.vue";
 
 export default {
@@ -301,6 +302,10 @@ export default {
     }
   },
   created() {
+    EventBus.$on('SHOW-AUTH', () => {
+      this.showAuthDialog = true
+      console.log('here')
+    })
     this.axios.get(`http://localhost:5000/catalog/categories/`, {
     }).then(data => {
       console.log(data.data.data)

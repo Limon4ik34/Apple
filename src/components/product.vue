@@ -106,6 +106,7 @@
 </style>
 
 <script>
+import { EventBus } from '@/utils/event-bus'
 export default {
   props: {
     product: {
@@ -116,18 +117,25 @@ export default {
   name: "product",
   methods: {
     addToCart() {
-      this.axios.post('http://localhost:5000/cart', {
-        id: this.product.id,
-        qty: 1
-      }, {
-        headers: {
-          Authorization: localStorage.token
-        }
-      }).then(data => {
-        // Обработка успешного добавления в корзину
-      }).catch(error => {
-        console.error('Ошибка при добавлении в корзину:', error);
-      });
+      console.log('here', localStorage.token)
+      if (localStorage.token) {
+        this.axios.post('http://localhost:5000/cart', {
+          id: this.product.id,
+          qty: 3
+        }, {
+          headers: {
+            Authorization: localStorage.token
+          }
+        }).then(data => {
+          // Обработка успешного добавления в корзину
+        }).catch(error => {
+          console.error('Ошибка при добавлении в корзину:', error);
+        });
+      } else {
+        console.log('here')
+        EventBus.$emit('SHOW-AUTH')
+      }
+
     }
   }
 }
