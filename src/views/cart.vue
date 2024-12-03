@@ -4,7 +4,7 @@
     <div class="product-wrapper">
       <div v-for="product in products" :key="product.id" class="product">
         <div class="product-image">
-          <img :src="product.img" alt="Product Image" class="image">
+          <img :src="product.images[0]" alt="Product Image" class="image">
         </div>
         <div class="product-details">
           <div class="title">{{ product.title }}</div>
@@ -14,8 +14,8 @@
             <button @click="increaseQuantity(product)" class="quantity-button">+</button>
           </div>
           <div class="price">
-            <span class="current-price">{{ formatPrice(product.prices.currentPrice) }}</span>
-            <span class="old-price">{{ formatPrice(product.prices.oldPrice) }}</span>
+            <span class="current-price">{{ formatPrice(product.currentPrice) }}</span>
+            <span class="old-price">{{ formatPrice(product.oldPrice) }}</span>
           </div>
           <div class="savings">
             Выгода: {{ formatPrice(calculateSavings(product)) }}
@@ -172,17 +172,26 @@ export default {
   name: "cart",
   data() {
     return {
-      products: []
+      pending: false
+      // products: []
     }
   },
   created() {
-    this.axios.get('http://localhost:5000/cart', {
-      headers: {
-        Authorization: localStorage.token
-      }
-    }).then(response => {
-      this.products = response.data.data.products;
-    });
+    this.$store.dispatch('getCart')
+    console.log(this.$store)
+    // this.axios.get('http://localhost:5000/cart', {
+    //   headers: {
+    //     Authorization: localStorage.token
+    //   }
+    // }).then(response => {
+    //   this.products = response.data.data.products;
+    // });
+  },
+
+  computed: {
+    products() {
+      return this.$store.getters.getCart
+    }
   },
   methods: {
     formatPrice(price) {
@@ -193,7 +202,7 @@ export default {
     },
     calculateTotal() {
       return this.products.reduce((total, product) => {
-        return total + (product.prices.currentPrice * product.qty);
+        return total + (product.currentPrice * product.qty);
       }, 0);
     },
     calculateTotalSavings() {
@@ -202,16 +211,40 @@ export default {
       }, 0);
     },
     calculateSavings(product) {
-      const savingsPerItem = product.prices.oldPrice - product.prices.currentPrice;
+      const savingsPerItem = product.oldPrice - product.currentPrice;
       return savingsPerItem > 0 ? savingsPerItem * product.qty : 0;
     },
     increaseQuantity(product) {
-      product.qty++;
+      this.pending = true
+      this.axios.post('http://localhost:5000/cart', {
+        id: product.id,
+        qty:product.qty + 1
+      }, {
+        headers: {
+          Authorization: localStorage.token
+        }
+      }).then(data => {
+        this.pending = false
+        this.$store.commit('changeCart', data.data.data.products)
+      }).catch(error => {
+        console.error('Ошибка при добавлении в корзину:', error);
+      });
     },
     decreaseQuantity(product) {
-      if (product.qty > 1) {
-        product.qty--;
-      }
+      this.pending = true
+      this.axios.post('http://localhost:5000/cart', {
+        id: product.id,
+        qty:product.qty - 1
+      }, {
+        headers: {
+          Authorization: localStorage.token
+        }
+      }).then(data => {
+        this.pending = false
+        this.$store.commit('changeCart', data.data.data.products)
+      }).catch(error => {
+        console.error('Ошибка при добавлении в корзину:', error);
+      });
     }
   }
 }

@@ -28,6 +28,8 @@ export default {
     VueHead
   },
   beforeCreate() {
+    console.log('beforeCreate')
+    this.$store.dispatch('getCart')
     // if (!localStorage.token) {
     //   this.axios.get('http://localhost:5000/auth/get-token').then(data => {
     //     console.log('token', data.data.data.data.token)

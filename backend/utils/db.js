@@ -381,6 +381,7 @@ export default {
               const sql3 = `SELECT * FROM product_images WHERE productId='${product[0].id}'`
               connection.query(sql3, function (err, img) {
                 product[0].images = []
+                product[0].qty = item.qty
                 img.forEach((i) => {
                   product[0].images.push(`http://localhost:5000/${i.name}`)
                 })

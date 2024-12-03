@@ -10,7 +10,7 @@
         {{ product.title }}
       </span>
     </router-link>
-    <div class="actions">
+    <div class="actions" :class="{disabled: pending}">
       <div class="info">
         <div class="cost-old">
           {{ product?.oldPrice }} ₽
@@ -19,9 +19,24 @@
           {{ product?.currentPrice }} ₽
         </div>
       </div>
-      <md-button @click="addToCart" class="md-fab md-mini md-primary add-to-cart">
-        <md-icon>shopping_basket</md-icon>
-      </md-button>
+      <div v-if="!inCart">
+        <md-button @click="addToCart" class="md-fab md-mini md-primary add-to-cart">
+          <md-icon>shopping_basket</md-icon>
+        </md-button>
+      </div>
+      <div v-else>
+        <div class="actions">
+          <md-button @click="decrement" class="md-fab md-mini md-primary add-to-cart">
+            <md-icon>remove</md-icon>
+          </md-button>
+          <div class="counter">
+            {{ inCart.qty }}
+          </div>
+          <md-button @click="increment" class="md-fab md-mini md-primary add-to-cart">
+            <md-icon>add</md-icon>
+          </md-button>
+        </div>
+      </div>
     </div>
   </md-card>
 </template>
@@ -72,11 +87,22 @@
     }
   }
 
+  .counter {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 8px;
+  }
+
   .actions {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
+
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
 
     .info {
       .cost-old {
@@ -115,19 +141,26 @@ export default {
     }
   },
   name: "product",
+  data() {
+    return {
+      pending: false
+    }
+  },
   methods: {
     addToCart() {
       console.log('here', localStorage.token)
       if (localStorage.token) {
+        this.pending = true
         this.axios.post('http://localhost:5000/cart', {
           id: this.product.id,
-          qty: 3
+          qty: 1
         }, {
           headers: {
             Authorization: localStorage.token
           }
         }).then(data => {
-          // Обработка успешного добавления в корзину
+          this.pending = false
+          this.$store.commit('changeCart', data.data.data.products)
         }).catch(error => {
           console.error('Ошибка при добавлении в корзину:', error);
         });
@@ -135,7 +168,53 @@ export default {
         console.log('here')
         EventBus.$emit('SHOW-AUTH')
       }
-
+    },
+    increment() {
+      if (localStorage.token) {
+        this.pending = true
+        this.axios.post('http://localhost:5000/cart', {
+          id: this.product.id,
+          qty: this.inCart.qty + 1
+        }, {
+          headers: {
+            Authorization: localStorage.token
+          }
+        }).then(data => {
+          this.pending = false
+          this.$store.commit('changeCart', data.data.data.products)
+        }).catch(error => {
+          console.error('Ошибка при добавлении в корзину:', error);
+        });
+      } else {
+        console.log('here')
+        EventBus.$emit('SHOW-AUTH')
+      }
+    },
+    decrement() {
+      if (localStorage.token) {
+        this.pending = true
+        this.axios.post('http://localhost:5000/cart', {
+          id: this.product.id,
+          qty: this.inCart.qty - 1
+        }, {
+          headers: {
+            Authorization: localStorage.token
+          }
+        }).then(data => {
+          this.pending = false
+          this.$store.commit('changeCart', data.data.data.products)
+        }).catch(error => {
+          console.error('Ошибка при добавлении в корзину:', error);
+        });
+      } else {
+        console.log('here')
+        EventBus.$emit('SHOW-AUTH')
+      }
+    },
+  },
+  computed: {
+    inCart() {
+      return this.$store.getters.getProductId(this.product.id)
     }
   }
 }
