@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page" :class="{disabled: pending}">
     <AdminMenu />
     <h1>Администрирование заказов</h1>
     <div>
@@ -119,6 +119,11 @@
   width: 400px;
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 .page {
   padding: 20px;
 }
@@ -152,6 +157,7 @@ export default {
   components: {AdminMenu},
   data() {
     return {
+      pending: false,
       showDialog: false,
       currentOrder: null,
       orders: []
@@ -181,12 +187,23 @@ export default {
       return sum
     },
     changeStatus(order) {
+      this.pending = true
       this.axios.patch('http://localhost:5000/orders/', order ,{
         headers: {
           Authorization: localStorage.token
         }
       }).then(data => {
         console.log(data)
+        this.axios.get('http://localhost:5000/orders/', {
+          headers: {
+            Authorization: localStorage.token
+          }
+        }).then(data => {
+          this.pending = false
+          this.orders = [...data.data.data]
+          console.log(data)
+        }).catch((err)=> {
+        });
       }).catch((err)=> {
       });
       console.log(user)
