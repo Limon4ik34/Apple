@@ -147,6 +147,9 @@
   margin-left: 16px;
   display: inline;
   text-align: center;
+  @media screen and (max-width: 768px)  {
+    margin-left: 0;
+  }
   a {
     margin-right: 16px;
     text-transform: uppercase;
