@@ -206,11 +206,18 @@ export default {
 
   .product-content {
     display: flex;
+    @media screen and (max-width: 768px)  {
+      display: block;
+    }
 
     .images-wrapper {
       width: 500px;
       flex-shrink: 0;
       margin-right: 20px;
+
+      @media screen and (max-width: 768px)  {
+        width: 100%;
+      }
 
       .image-navigation {
         display: flex;
