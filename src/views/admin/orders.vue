@@ -45,7 +45,7 @@
               <md-select v-model="order.status" name="status" id="status" @md-selected=changeStatus(order)>
                 <md-option value="new">Новый</md-option>
                 <md-option value="canceled">Отмененный</md-option>
-                <md-option value="closed">Оплаченный</md-option>
+                <md-option value="paymened">Оплаченный</md-option>
                 <md-option value="closed">Завершенный</md-option>
               </md-select>
             </md-field>
