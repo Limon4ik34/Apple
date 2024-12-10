@@ -35,7 +35,12 @@
     </md-toolbar>
     <div>
       <md-dialog class="search-dialog" :md-active.sync="showSearchDialog">
-        <md-dialog-title>Поиск в Mobile City</md-dialog-title>
+        <md-dialog-title style="display: flex; align-items: center; justify-content:space-between;">
+          Поиск в Mobile City
+          <md-button class="md-icon-button mobile" @click="showSearchDialog = false">
+            <md-icon>close</md-icon>
+          </md-button>
+        </md-dialog-title>
         <div class="wrapper">
 
         <md-field>
@@ -62,8 +67,13 @@
         </div>
       </md-dialog>
       <md-dialog  class="auth-dialog" :md-active.sync="showAuthDialog">
-        <md-dialog-title>Авторизация в Mobile City</md-dialog-title>
-        <md-tabs :md-active-tab="activeTab" style="width: 400px;">
+        <md-dialog-title style="display: flex; align-items: center; justify-content:space-between;">
+          Авторизация в Mobile City
+          <md-button class="md-icon-button mobile" @click="showAuthDialog = false">
+            <md-icon>close</md-icon>
+          </md-button>
+        </md-dialog-title>
+        <md-tabs :md-active-tab="activeTab" style="width: 400px; max-height: 48px">
           <md-tab @click.prevent="activeTab = 'auth'" id="auth" md-label="Авторизация"/>
           <md-tab @click.prevent="activeTab = 'reg'" id="reg" md-label="Регистрация"/>
         </md-tabs>
@@ -178,6 +188,13 @@
     justify-content: center;
   }
 }
+
+.mobile {
+  display: none;
+  @media screen and (max-width: 768px)  {
+    display: block;
+  }
+}
 .results{
   max-height: 400px;
   overflow: auto;
@@ -188,9 +205,18 @@
   column-gap: 10px;
   row-gap: 10px;
   width: 700px;
+
+  @media screen and (max-width: 768px)  {
+    width: 100%;
+    height: 100%;
+    min-height: calc(100vh - 200px);
+    min-width: auto;
+  }
   .result{
     width: calc((100% - 32px) / 3);
-
+    @media screen and (max-width: 768px)  {
+      width: 100%;
+    }
   }
 }
 .wrapper{
