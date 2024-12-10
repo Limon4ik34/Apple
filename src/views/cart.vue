@@ -32,7 +32,7 @@
         <span>Выгода всего:</span>
         <span>{{ formatPrice(calculateTotalSavings()) }}</span>
       </div>
-      <router-link v-if="products.length" to="/payment">
+      <router-link v-if="products.length" to="/payment" class="payment">
         <button class="checkout-button">Оформить заказ</button>
       </router-link>
     </div>
@@ -73,6 +73,7 @@
 
 .product-image {
   flex: 0 0 150px;
+
   img {
     width: 100%;
     height: auto;
@@ -117,18 +118,26 @@
   font-size: 1.2rem;
   color: #e63946;
   font-weight: bold;
+
 }
 
 .old-price {
   text-decoration: line-through;
   color: #999;
   margin-left: 10px;
+  @media screen and (max-width: 768px) {
+    display: block;
+    margin-left: 0;
+  }
 }
 
 .savings {
   font-size: 1rem;
   color: #28a745; /* Зеленый цвет для сэкономленных денег */
   font-weight: bold;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 }
 
 .cart-summary {
@@ -140,17 +149,30 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 }
 
 .total {
   font-size: 1.5rem;
   font-weight: bold;
+  @media screen and (max-width: 768px) {
+    margin-bottom: 10px;
+    text-align: center;
+  }
 }
 
 .total-savings {
   font-size: 1.2rem;
   font-weight: bold;
   color: #28a745; /* Зеленый цвет для общей экономии */
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 10px;
+    text-align: center;
+  }
 }
 
 .checkout-button {
@@ -162,6 +184,15 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
+
+}
+
+.payment {
+  @media screen and (max-width: 768px) {
+    margin: 0 auto;
+    display: block;
+    width: max-content;
+  }
 }
 
 .checkout-button:hover {
@@ -220,7 +251,7 @@ export default {
       this.pending = true
       this.axios.post('http://localhost:5000/cart', {
         id: product.id,
-        qty:product.qty + 1
+        qty: product.qty + 1
       }, {
         headers: {
           Authorization: localStorage.token
@@ -236,7 +267,7 @@ export default {
       this.pending = true
       this.axios.post('http://localhost:5000/cart', {
         id: product.id,
-        qty:product.qty - 1
+        qty: product.qty - 1
       }, {
         headers: {
           Authorization: localStorage.token
