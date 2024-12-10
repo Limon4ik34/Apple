@@ -1,6 +1,6 @@
 <template>
   <div>
-    <md-toolbar class="md-dense">
+    <md-toolbar class="bar md-dense ">
       <router-link to="/" class="md-title">
         <h3>Mobile City</h3>
       </router-link>
@@ -9,7 +9,7 @@
           {{ category.title }}
         </router-link>
       </div>
-      <div class="md-toolbar-section-end">
+      <div class="md-toolbar-section-end buttons">
         <md-button
             @click="showSearchDialog = true"
             class="md-icon-button md-raised md-mini"
@@ -155,6 +155,25 @@
 .search-dialog{
   width: 100%;
 
+}
+
+.bar {
+  @media screen and (max-width: 768px)  {
+   display: block;
+    padding-bottom: 10px;
+
+    h3 {
+      margin: 0;
+    }
+  }
+}
+
+.buttons {
+  @media screen and (max-width: 768px)  {
+    width: 100%;
+    flex-shrink: 0;
+    justify-content: center;
+  }
 }
 .results{
   max-height: 400px;
