@@ -9,6 +9,8 @@ import searchApi from './api/search.js'
 import authApi from './api/auth.js'
 import cartApi from './api/cart.js'
 import adminApi from './api/admin.js'
+import usersApi from './api/users.js'
+import ordersApi from './api/order.js'
 import db from './utils/db.js'
 import 'dotenv/config'
 
@@ -33,6 +35,8 @@ searchApi(app)
 authApi(app)
 cartApi(app)
 adminApi(app)
+usersApi(app)
+ordersApi(app)
 
 
 const port = 5000

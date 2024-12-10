@@ -1,7 +1,7 @@
 <template>
   <div class="page">
-
     <div class="form">
+      <AdminMenu />
       <h1>
         {{ $route.params.productId === 'new' ? 'Создать новый товар' : 'Редактирование товара' }}
       </h1>
@@ -91,8 +91,11 @@
 
 </style>
 <script>
+import AdminMenu from "@/components/admin-menu.vue";
+
 export default {
   name: "product-form",
+  components: {AdminMenu},
   data() {
     return {
       previewImages: [],
@@ -117,7 +120,11 @@ export default {
     if (this.$route.params.productId === 'new') {
 
     } else {
-      this.axios.get(`http://localhost:5000/admin/products/${this.$route.params.productId}`).then(data => {
+      this.axios.get(`http://localhost:5000/admin/products/${this.$route.params.productId}`, {
+        headers: {
+          Authorization: localStorage.token
+        }
+      }).then(data => {
         this.model = {...data.data.data.product}
         this.previewImages = this.model.images
         // this.categoriesList = [...data.data.data.product]
@@ -150,7 +157,11 @@ export default {
       formData.append('slug', this.model.slug)
 
       if (this.$route.params.productId === 'new') {
-        this.axios.post('http://localhost:5000/admin/products', formData).then(data => {
+        this.axios.post('http://localhost:5000/admin/products', formData, {
+          headers: {
+            Authorization: localStorage.token
+          }
+        }).then(data => {
           // this.categoriesList = [...data.data.data]
           this.$router.push('/admin/products')
         }).catch((err)=> {
@@ -158,7 +169,11 @@ export default {
         });
       } else {
         formData.append('id', this.model.id)
-        this.axios.patch(`http://localhost:5000/admin/products/${this.model.id}`, formData).then(data => {
+        this.axios.patch(`http://localhost:5000/admin/products/${this.model.id}`, formData, {
+          headers: {
+            Authorization: localStorage.token
+          }
+        }).then(data => {
           // this.categoriesList = [...data.data.data]
           this.$router.push('/admin/products')
         }).catch((err)=> {
@@ -180,7 +195,11 @@ export default {
       }
     },
     getCategoriesList() {
-      this.axios.get('http://localhost:5000/catalog/categories', {}).then(data => {
+      this.axios.get('http://localhost:5000/catalog/categories', {
+        headers: {
+          Authorization: localStorage.token
+        }
+      }).then(data => {
         this.categoriesList = [...data.data.data]
       }).catch((err)=> {
         // this.regErrors = err.response.data.data.errors

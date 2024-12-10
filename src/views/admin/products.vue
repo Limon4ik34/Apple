@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <AdminMenu />
     <h1>Администрирование товаров</h1>
     <md-button
       class="md-dense md-raised md-primary"
@@ -88,9 +89,11 @@
 </style>
 <script>
 import {create} from "axios";
+import AdminMenu from "@/components/admin-menu.vue";
 
 export default {
   name: "categories",
+  components: {AdminMenu},
   data() {
     return {
       deleteOptions: {
@@ -127,7 +130,11 @@ export default {
     },
     confirmDelete() {
 
-      this.axios.delete(`http://localhost:5000/admin/products/${this.deleteOptions.product.id}`).then(data => {
+      this.axios.delete(`http://localhost:5000/admin/products/${this.deleteOptions.product.id}`, {
+        headers: {
+          Authorization: localStorage.token
+        }
+      }).then(data => {
         this.showCreateNewDialog = false
         this.deleteOptions = {
           show: false,
@@ -145,7 +152,11 @@ export default {
       }
     },
     getProductsList() {
-      this.axios.get('http://localhost:5000/admin/products', {}).then(data => {
+      this.axios.get('http://localhost:5000/admin/products', {
+        headers: {
+          Authorization: localStorage.token
+        }
+      }).then(data => {
         this.productsList = [...data.data.data.products]
       }).catch((err)=> {
         // this.regErrors = err.response.data.data.errors

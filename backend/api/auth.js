@@ -7,10 +7,6 @@ import pkg from 'jsonwebtoken';
 import db from '../utils/db.js'
 
 export default function (server) {
-  server.get('/auth/get-token', async (query, res) => {
-    const token = pkg.sign({foo: 'bar'}, 'shhhhh');
-    res.sendWrapped({data: {token}})
-  })
   server.post('/auth/registration', async (query, res) => {
     const newUser = query.body
     db.createUser(newUser).then((result) => {
@@ -37,6 +33,15 @@ export default function (server) {
           password: ' ',
         }
       })
+    })
+  })
+  server.get('/auth/user-data', async (query, res) => {
+    const user = pkg.verify(query.headers.authorization, 'shhhhh')
+    db.getUserById(user.id).then((userData) => {
+      delete userData.password
+      res.status(200).sendWrapped(userData)
+    }).catch((err) => {
+      res.status(404).sendWrapped({})
     })
   })
 }

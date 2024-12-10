@@ -77,6 +77,7 @@
   font-size: 2.5rem; /* размер шрифта заголовка */
   color: #333; /* цвет текста */
   margin-bottom: 10px; /* отступ снизу */
+  line-height: 2.5rem;
 }
 
 .store-description {

@@ -32,7 +32,9 @@
         <span>Выгода всего:</span>
         <span>{{ formatPrice(calculateTotalSavings()) }}</span>
       </div>
-      <button class="checkout-button">Оформить заказ</button>
+      <router-link v-if="products.length" to="/payment">
+        <button class="checkout-button">Оформить заказ</button>
+      </router-link>
     </div>
   </div>
 </template>

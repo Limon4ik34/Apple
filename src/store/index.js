@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cart: []
+    cart: [],
+    user: null,
   },
   getters: {
     getProductId: (state) => (id) => {
@@ -33,7 +34,19 @@ export default new Vuex.Store({
           this.state.cart = data.data.data.products
         } )
       }
-    }
+    },
+    getUserData() {
+      if (localStorage.token)  {
+        this._vm.axios.get('http://localhost:5000/auth/user-data', {
+          headers: {
+            Authorization: localStorage.token
+          }
+        }).then((data) => {
+          this.state.user = data.data.data
+        } )
+      }
+    },
+
   },
   modules: {
   }

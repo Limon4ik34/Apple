@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <AdminMenu />
     <h1>Администрирование категорий</h1>
     <md-button
       class="md-dense md-raised md-primary"
@@ -87,10 +88,12 @@
 }
 </style>
 <script>
-import {create} from "axios";
-
+import AdminMenu from "@/components/admin-menu.vue";
 export default {
   name: "categories",
+  components: {
+    AdminMenu
+  },
   data() {
     return {
       deleteOptions: {
@@ -120,6 +123,10 @@ export default {
     create() {
       this.axios.post('http://localhost:5000/admin/categories', {
         ...this.newCategoryModel
+      },{
+        headers: {
+          Authorization: localStorage.token
+        }
       }).then(data => {
         this.showCreateNewDialog = false
         this.clearModel()
@@ -131,6 +138,10 @@ export default {
     edit() {
       this.axios.patch(`http://localhost:5000/admin/categories/${this.newCategoryModel.id}`, {
         ...this.newCategoryModel
+      }, {
+        headers: {
+          Authorization: localStorage.token
+        }
       }).then(data => {
         this.showCreateNewDialog = false
         this.clearModel()
@@ -146,7 +157,11 @@ export default {
      }
     },
     confirmDelete() {
-      this.axios.delete(`http://localhost:5000/admin/categories/${this.deleteOptions.category.id}`).then(data => {
+      this.axios.delete(`http://localhost:5000/admin/categories/${this.deleteOptions.category.id}`, {
+        headers: {
+          Authorization: localStorage.token
+        }
+      }).then(data => {
         this.showCreateNewDialog = false
         this.clearModel()
         this.getCategoriesList()
@@ -178,7 +193,11 @@ export default {
       }
     },
     getCategoriesList() {
-      this.axios.get('http://localhost:5000/catalog/categories', {}).then(data => {
+      this.axios.get('http://localhost:5000/catalog/categories', {
+        headers: {
+          Authorization: localStorage.token
+        }
+      }).then(data => {
         this.categoriesList = [...data.data.data]
       }).catch((err)=> {
         // this.regErrors = err.response.data.data.errors

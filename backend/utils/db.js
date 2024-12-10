@@ -1,6 +1,8 @@
 // const mysql = require("mysql2");
 // const mysql = require("mysql2");
 import mysql from 'mysql2'
+import md5 from 'md5'
+
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -24,7 +26,7 @@ export default {
     let res = new Promise((resolve, reject) => {
       const sql = `
             INSERT INTO users (name, lastName, login, password, role) VALUES('${newUser.name}',
-            '${newUser.lastName}', '${newUser.login}', '${newUser.password}', 'user')
+            '${newUser.lastName}', '${newUser.login}', '${md5(newUser.password)}', 'user')
             `
       connection.query(sql, function (err, results) {
         if (err) {
@@ -37,15 +39,154 @@ export default {
     })
     return res
   },
+  async createOrder(orderData, user) {
+    let res = new Promise((resolve, reject) => {
+      const sql = `
+            INSERT INTO orders (userId, cardNumber, cardDate, cvv, contacts) VALUES('${user.id}',
+            '${orderData.cardNumber}', '${orderData.cardDate}', '${orderData.cvv}', '${orderData.contacts}')
+            `
+      connection.query(sql, (err, results) => {
+        if (err) {
+          reject(err)
+        } else {
+          const newOrderId = results.insertId
+          this.getCart(user.id).then((cart) => {
+
+            cart.forEach((product) => {
+              const sql2 = `
+            INSERT INTO order_products (productId, orderId, title, oldPrice, currentPrice, description, slug, qty) VALUES('${product.id}',
+            '${newOrderId}', '${product.title}', '${product.oldPrice}', '${product.currentPrice}', '${product.description}', '${product.slug}', '${product.qty}')
+            `
+              connection.query(sql2, function (err, results) {
+                console.log(err)
+              })
+            })
+            setTimeout(() => {
+              const sqlClearUserCart = `DELETE FROM carts WHERE userId=${user.id}`;
+              connection.query(sqlClearUserCart, function (err, results) {
+              })
+            }, 2000)
+            resolve(true)
+          })
+        }
+      });
+    })
+    return res
+  },
+  async getOrders() {
+    let res = new Promise((resolve, reject) => {
+      const sql = `SELECT * FROM orders`;
+      connection.query(sql, (err, orders) => {
+        if (err) {
+          reject(err)
+        } else {
+          orders.forEach(order => {
+            const sqlProducts = `SELECT * FROM order_products WHERE orderId=${order.id}`
+            connection.query(sqlProducts, (err, products) => {
+              order.products = products
+            })
+            this.getUserById(order.userId).then(user => {
+              delete user.password
+              order.user = user
+            })
+          })
+          setTimeout(() => {
+            resolve(orders)
+          }, 300)
+          // const newOrderId = results.insertId
+
+        }
+      });
+    })
+    return res
+  },
+  async changeOrderStatus(id, status) {
+    let res = new Promise((resolve, reject) => {
+      const sql = `UPDATE orders SET status = '${status}' WHERE id=${id}`;
+      connection.query(sql, (err, orders) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(true)
+        }
+      });
+    })
+    return res
+  },
+
   async getUser(user) {
     let res = new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM users WHERE login='${user.login}' AND password='${user.password}'`;
+      const sql = `SELECT * FROM users WHERE login='${user.login}' AND password='${md5(user.password)}'`;
       connection.query(sql, function (err, results) {
         if (err || !results[0]) {
           console.log('reject')
           reject(err)
         } else {
           resolve(results)
+          console.log('resolve')
+        }
+      });
+    })
+    return res
+  },
+  async geAllUsers() {
+    let res = new Promise((resolve, reject) => {
+      const sql = `SELECT * FROM users`;
+      connection.query(sql, function (err, results) {
+        if (err || !results[0]) {
+          console.log('reject')
+          reject(err)
+        } else {
+          results.forEach(item => {
+            delete item.password
+          })
+          resolve(results)
+          console.log('resolve')
+        }
+      });
+    })
+    return res
+  },
+  async getUserById(id) {
+    let res = new Promise((resolve, reject) => {
+      const sql = `SELECT * FROM users WHERE id='${id}'`;
+      connection.query(sql, function (err, results) {
+        if (err || !results[0]) {
+          console.log('reject')
+          reject(err)
+        } else {
+          resolve(results[0])
+          console.log('resolve')
+        }
+      });
+    })
+    return res
+  },
+  async isUserAdmin(id) {
+    let res = new Promise((resolve, reject) => {
+      const sql = `SELECT * FROM users WHERE id='${id}'`;
+      connection.query(sql, function (err, results) {
+        if (err || !results[0] || results[0].role !== 'admin') {
+          console.log('reject')
+          reject(err)
+        } else {
+          resolve(results[0])
+          console.log('resolve')
+        }
+      });
+    })
+    return res
+  },
+  async updateUserRole(user) {
+    console.log(user)
+    let res = new Promise((resolve, reject) => {
+      const sql = `UPDATE users SET role='${user.role}' WHERE id=${user.id}`;
+      connection.query(sql, function (err, results) {
+        if (err) {
+          console.log('reject')
+          reject(err)
+        } else {
+          resolve(true)
           console.log('resolve')
         }
       });

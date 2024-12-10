@@ -19,9 +19,18 @@
           <md-button @click="goToCart" class="md-icon-button md-raised md-mini">
             <md-icon>shopping_cart</md-icon>
           </md-button>
-        <md-button @click="showAuthDialog = true" class="md-icon-button md-raised">
+        <md-button v-if="user" @click="logout" class="md-icon-button md-raised">
+          <md-icon>logout</md-icon>
+        </md-button>
+        <md-button v-else @click="showAuthDialog = true" class="md-icon-button md-raised">
           <md-icon>login</md-icon>
         </md-button>
+        <router-link v-if="user && user.role === 'admin'" to="/admin/categories">
+          <md-button  class="md-icon-button md-raised">
+            <md-icon>admin_panel_settings</md-icon>
+          </md-button>
+        </router-link>
+
       </div>
     </md-toolbar>
     <div>
@@ -51,7 +60,6 @@
           </div>
         </md-content>
         </div>
-
       </md-dialog>
       <md-dialog  class="auth-dialog" :md-active.sync="showAuthDialog">
         <md-dialog-title>Авторизация в Mobile City</md-dialog-title>
@@ -126,7 +134,7 @@
           <span class="md-error">{{ regErrors.passwordAgain }}</span>
           </md-field>
           <md-field>
-            <md-button @click="registration" style="width: 100%" class="md-raised md-primary">Войти</md-button>
+            <md-button @click="registration" style="width: 100%" class="md-raised md-primary">Зарегистрироваться</md-button>
           </md-field>
         </div>
       </md-dialog>
@@ -207,6 +215,10 @@ export default {
     }
   },
   methods:{
+    logout() {
+      delete localStorage.token
+      location.reload()
+    },
     search() {
       console.log('search')
       this.axios.get('http://localhost:5000/search', {
@@ -295,6 +307,7 @@ export default {
           }
           this.showAuthDialog = false
           localStorage.token = data.data.data.token
+          location.reload()
         }).catch((err)=> {
           this.authErrors = err.response.data.data.errors
         });
@@ -312,6 +325,11 @@ export default {
       // this.category = data.data.data
       this.categoryList = data.data.data
     })
+  },
+  computed: {
+    user() {
+      return this.$store.state.user
+    }
   }
 }
 

@@ -41,8 +41,21 @@
         <div class="description md-subheading">
           {{ product.description }}
         </div>
-        <div class="button">
-          <md-button class="md-raised md-primary">В корзину</md-button>
+        <div v-if="!inCart" class="button" :class="{disabled: pending}">
+          <md-button class="md-raised md-primary" @click="addToCart()">В корзину</md-button>
+        </div>
+        <div v-else>
+          <div class="actions" :class="{disabled: pending}">
+            <md-button @click="decrement" class="md-fab md-mini md-primary add-to-cart">
+              <md-icon>remove</md-icon>
+            </md-button>
+            <div class="counter">
+              {{ inCart.qty }}
+            </div>
+            <md-button @click="increment" class="md-fab md-mini md-primary add-to-cart">
+              <md-icon>add</md-icon>
+            </md-button>
+          </div>
         </div>
       </div>
     </div>
@@ -50,10 +63,13 @@
 </template>
 
 <script>
+import {EventBus} from "@/utils/event-bus";
+
 export default {
   name: "product",
   data() {
     return {
+      pending: false,
       currentImageIndex: 0, // Индекс текущего изображения
       product: null,
       bgPosition: { x: 50, y: 50 },
@@ -63,6 +79,9 @@ export default {
   computed: {
     currentImage() {
       return this.product.images[this.currentImageIndex]; // Получаем текущее изображение по индексу
+    },
+    inCart() {
+      return this.$store.getters.getProductId(this.product.id)
     }
   },
   created() {
@@ -107,12 +126,80 @@ export default {
       } else {
         this.currentImageIndex = 0; // Переключаемся на первое изображение
       }
-    }
+    },
+    addToCart() {
+      console.log('here', localStorage.token)
+      if (localStorage.token) {
+        this.pending = true
+        this.axios.post('http://localhost:5000/cart', {
+          id: this.product.id,
+          qty: 1
+        }, {
+          headers: {
+            Authorization: localStorage.token
+          }
+        }).then(data => {
+          this.pending = false
+          this.$store.commit('changeCart', data.data.data.products)
+        }).catch(error => {
+          console.error('Ошибка при добавлении в корзину:', error);
+        });
+      } else {
+        console.log('here')
+        EventBus.$emit('SHOW-AUTH')
+      }
+    },
+    increment() {
+      if (localStorage.token) {
+        this.pending = true
+        this.axios.post('http://localhost:5000/cart', {
+          id: this.product.id,
+          qty: this.inCart.qty + 1
+        }, {
+          headers: {
+            Authorization: localStorage.token
+          }
+        }).then(data => {
+          this.pending = false
+          this.$store.commit('changeCart', data.data.data.products)
+        }).catch(error => {
+          console.error('Ошибка при добавлении в корзину:', error);
+        });
+      } else {
+        console.log('here')
+        EventBus.$emit('SHOW-AUTH')
+      }
+    },
+    decrement() {
+      if (localStorage.token) {
+        this.pending = true
+        this.axios.post('http://localhost:5000/cart', {
+          id: this.product.id,
+          qty: this.inCart.qty - 1
+        }, {
+          headers: {
+            Authorization: localStorage.token
+          }
+        }).then(data => {
+          this.pending = false
+          this.$store.commit('changeCart', data.data.data.products)
+        }).catch(error => {
+          console.error('Ошибка при добавлении в корзину:', error);
+        });
+      } else {
+        console.log('here')
+        EventBus.$emit('SHOW-AUTH')
+      }
+    },
   }
 }
 </script>
 
 <style scoped lang="scss">
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
 .product-page {
   padding: 16px;
   padding-top: 100px;
@@ -204,5 +291,10 @@ export default {
       width: 100%;
     }
   }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
 }
 </style>

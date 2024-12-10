@@ -28,14 +28,17 @@ export default {
     VueHead
   },
   beforeCreate() {
-    console.log('beforeCreate')
     this.$store.dispatch('getCart')
-    // if (!localStorage.token) {
-    //   this.axios.get('http://localhost:5000/auth/get-token').then(data => {
-    //     console.log('token', data.data.data.data.token)
-    //     localStorage.token = data.data.data.data.token
-    //   });
-    // }
+    this.$store.dispatch('getUserData')
+    if (localStorage.token) {
+      this.$store.dispatch('getUserData')
+    }
+  },
+  watch: {
+    $route() {
+      this.$store.dispatch('getCart')
+      this.$store.dispatch('getUserData')
+    }
   }
 }
 </script>
