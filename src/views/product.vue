@@ -204,6 +204,10 @@ export default {
   padding: 16px;
   padding-top: 100px;
 
+  @media screen and (max-width: 768px)  {
+    padding-top: 16px;
+  }
+
   .product-content {
     display: flex;
     @media screen and (max-width: 768px)  {
